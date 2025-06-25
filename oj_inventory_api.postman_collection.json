@@ -1,0 +1,125 @@
+{
+  "info": {
+    "_postman_id": "abc12345-6789-0000-1111-222233334444",
+    "name": "OJ Inventory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/items",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "items"]
+        }
+      }
+    },
+    {
+      "name": "Add Item",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Laptop\",\n  \"quantity\": 5\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/items",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "items"]
+        }
+      }
+    },
+    {
+      "name": "Update Item",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Laptop\",\n  \"quantity\": 10\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/items/1",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "items", "1"]
+        }
+      }
+    },
+    {
+      "name": "Delete Item",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/items/1",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "items", "1"]
+        }
+      }
+    },
+    {
+      "name": "Delete All Items",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/items/all",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "items", "all"]
+        }
+      }
+    },
+    {
+      "name": "Search Item (Laptop)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/items/search?name=laptop",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "items", "search"],
+          "query": [{ "key": "name", "value": "laptop" }]
+        }
+      }
+    },
+    {
+      "name": "Total Quantity",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/items/total",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "items", "total"]
+        }
+      }
+    },
+    {
+      "name": "Download Inventory",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/download",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "download"]
+        }
+      }
+    }
+  ]
+}
