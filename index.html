@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OJ Inventory System</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      background: #f3f4f6;
+      color: #111827;
+    }
+    h1 { color: #1e3a8a; }
+    input, button {
+      padding: 8px;
+      margin: 4px;
+    }
+    table {
+      margin-top: 1rem;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #10b981;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>OJ Inventory Dashboard</h1>
+
+  <h3>Add Item</h3>
+  <input type="text" id="name" placeholder="Item Name" />
+  <input type="number" id="quantity" placeholder="Quantity" />
+  <button onclick="addItem()">Add</button>
+
+  <h3>All Items</h3>
+  <button onclick="fetchItems()">Refresh List</button>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Quantity</th><th>Actions</th></tr>
+    </thead>
+    <tbody id="itemTable"></tbody>
+  </table>
+
+  <script>
+    const API = "http://127.0.0.1:5000/api/items";
+
+    function fetchItems() {
+      fetch(API)
+        .then(res => res.json())
+        .then(data => {
+          const rows = data.map(item => `
+            <tr>
+              <td>${item.id}</td>
+              <td>${item.name}</td>
+              <td>${item.quantity}</td>
+              <td>
+                <button onclick="deleteItem(${item.id})">Delete</button>
+                <button onclick="updateItem(${item.id})">Update</button>
+              </td>
+            </tr>
+          `);
+          document.getElementById("itemTable").innerHTML = rows.join("");
+        });
+    }
+
+    function addItem() {
+      const name = document.getElementById("name").value;
+      const quantity = parseInt(document.getElementById("quantity").value);
+
+      fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, quantity })
+      }).then(() => fetchItems());
+    }
+
+    function deleteItem(id) {
+      fetch(${API}/${id}, { method: "DELETE" })
+        .then(() => fetchItems());
+    }
+
+    function updateItem(id) {
+      const newName = prompt("Enter new name:");
+      const newQty = prompt("Enter new quantity:");
+      fetch(${API}/${id}, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newName, quantity: parseInt(newQty) })
+      }).then(() => fetchItems());
+    }
+
+    // Load items on page load
+    fetchItems();
+  </script>
+</body>
+</html>
